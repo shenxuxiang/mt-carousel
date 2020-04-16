@@ -4,7 +4,7 @@ A light-weight React react-carousel-comp component with extremely easy API（只
 ## Installation
 
 ```sh
-npm install react-carousel-comp --save
+npm install mt-carousel --save
 ```
 
 ## Usage
