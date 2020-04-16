@@ -18,11 +18,6 @@ import img4 from './static/images/14.jpg';
 import img5 from './static/images/15.jpg';
 import Carousel from 'mt-carousel';
 
-// 屏幕宽度
-const screenWidth = window.screen.width ||
-  document.documentElement.clientWidth ||
-  document.body.clientWidth;
-
 const source = [img1, img2, img3, img4, img5];
 export default class App extends PureComponent {
   render() {
