@@ -1,6 +1,6 @@
 # mt-carousel
 
-A light-weight React react-carousel-comp component with extremely easy API（只适用于移动端项目）. [Online Demo](https://shenxuxiang.github.io/mt-carousel/), welcome [code review](https://github.com/shenxuxiang/mt-carousel)
+A light-weight React mt-carousel component with extremely easy API（只适用于移动端项目）. [Online Demo](https://shenxuxiang.github.io/mt-carousel/), welcome [code review](https://github.com/shenxuxiang/mt-carousel)
 ## Installation
 
 ```sh
