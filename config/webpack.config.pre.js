@@ -19,7 +19,7 @@ module.exports = {
     path: path.resolve('build'),
     filename: 'static/js/[name].[chunkhash:8].js',
     chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
-    publicPath: PUBLIC_PATH,
+    publicPath: '/mt-carousel' + PUBLIC_PATH,
   },
   optimization: {
     minimize: true,
