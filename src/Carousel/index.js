@@ -19,9 +19,11 @@ function carousel(props) {
   const wrapperRef = useRef(null);
   const contentRef = useRef(null);
   const [state, dispatch] = useReducer(reduce, initState);
-  const { children, autoPlay, interval, indicatorColor, indicatorSize } = props;
+  const { children, autoPlay, interval, indicatorColor, indicatorSize, indicatorClass } = props;
   const content = useMemo(() => {
     const { length } = children;
+    const firstChild = children[0];
+    const lastChild = children[length - 1];
     return (
       <div
         className="mt-carousel-wrapper-x"
@@ -29,13 +31,29 @@ function carousel(props) {
         ref={contentRef}
       >
         {
-          length > 1 && children[length - 1]
+          length > 1 && 
+            React.cloneElement(lastChild, {
+              className: lastChild.props.className ? 
+                lastChild.props.className + ' mt-carousel-wrapper-x-item' :
+                'mt-carousel-wrapper-x-item',
+            })
         }
         {
-          children
+          children.map(child =>
+            React.cloneElement(child, {
+              className: child.props.className ? 
+                child.props.className + ' mt-carousel-wrapper-x-item' :
+                'mt-carousel-wrapper-x-item',
+            })
+          )
         }
         {
-          length > 1 && children[0]
+          length > 1 && 
+            React.cloneElement(firstChild, {
+              className: firstChild.props.className ? 
+                firstChild.props.className + ' mt-carousel-wrapper-x-item' :
+                'mt-carousel-wrapper-x-item',
+            })
         }
       </div>
     );
@@ -203,7 +221,10 @@ function carousel(props) {
   return (
     <div className="mt-carousel-wrapper" ref={wrapperRef}>
       {content}
-      <ul className="mt-carousel-indicator middle" style={{ color: indicatorColor }}>
+      <ul
+        className={`mt-carousel-indicator middle${indicatorClass ? ' ' + indicatorClass : ''}`}
+        style={{ color: indicatorColor }}
+      >
         {
           children.length > 1 && children.map((item, index) =>
             <li
@@ -223,6 +244,7 @@ carousel.propTypes = {
   interval: PropTypes.number,
   indicatorSize: PropTypes.string,
   indicatorColor: PropTypes.string,
+  indicatorClass: PropTypes.string,
 };
 
 carousel.defaultProps = {
@@ -231,6 +253,7 @@ carousel.defaultProps = {
   interval: 3000,
   indicatorSize: 'middle',
   indicatorColor: '#f80',
+  indicatorClass: '',
 };
 
 export default memo(carousel);

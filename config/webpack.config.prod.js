@@ -1,17 +1,30 @@
+/**
+ * 打包整个项目，这个包用于发布到线上 demo
+ * npm run pub
+*/
+
 const path = require('path');
-const nodeExternals = require('webpack-node-externals');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
+const webpack = require('webpack');
+const env = require('./env');
+const { PUBLIC_PATH } = env.raw;
 
 module.exports = {
-	mode: 'production',
-	entry: path.resolve('./src/Carousel/index.js'),
+  mode: 'production',
+  bail: true,
+	entry: [
+    path.resolve('src/index.js'),
+  ],
   output: {
-    filename: 'bundle.js',
-    path: path.resolve('./dist'),
-    libraryTarget: 'commonjs2',
+    path: path.resolve('build'),
+    filename: 'static/js/[name].[chunkhash:8].js',
+    chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
+    publicPath: '/mt-carousel' + PUBLIC_PATH,
   },
   optimization: {
     minimize: true,
@@ -42,14 +55,18 @@ module.exports = {
         cache: true,
         // 使用多进程并行运行来提高构建速度
         parallel: true,
-        // 设置进程的数量
-        // number: 4,
         // 使用源映射将错误消息位置映射到模块（这会减慢编译速度）
         sourceMap: false,
       }),
       // 压缩css
       new OptimizeCssAssetsWebpackPlugin({}),    
-    ]
+    ],
+    moduleIds: 'hashed',
+    splitChunks: {
+      chunks: 'all',
+      name: false,
+    },
+    runtimeChunk: true,
   },
   resolve: {
     extensions: ['.js', '.jsx'],
@@ -108,8 +125,7 @@ module.exports = {
           {
             test: /\.css$/,
             loaders: [
-              // MiniCssExtractPlugin.loader,
-              require.resolve('style-loader'),
+              MiniCssExtractPlugin.loader,
               require.resolve('css-loader'),
               {
                 loader: require.resolve('postcss-loader'),
@@ -133,8 +149,7 @@ module.exports = {
           {
             test: /\.less$/,
             loaders: [
-              // MiniCssExtractPlugin.loader,
-              require.resolve('style-loader'),
+              MiniCssExtractPlugin.loader,
               require.resolve('css-loader'),
               {
                 loader: require.resolve('postcss-loader'),
@@ -167,14 +182,19 @@ module.exports = {
       }
     ],
   },
-  // 打包的时候不将node_modules中的模块进行打包
-  externals: [nodeExternals()],
   plugins: [
     new CleanWebpackPlugin(),
-    new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css',
+    new HtmlWebpackPlugin({
+      template: path.resolve('./public/index.html'),
+      inject: true,
+      filename: 'index.html',
     }),
-  ]
+    new InterpolateHtmlPlugin(HtmlWebpackPlugin, env.raw),
+    new webpack.DefinePlugin(env.stringified),
+    new MiniCssExtractPlugin({
+      filename: 'static/css/[name].[contenthash:8].css',
+      chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
+    }),
+  ],
 }
 

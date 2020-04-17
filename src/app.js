@@ -4,22 +4,11 @@ import img2 from './static/images/12.jpg';
 import img3 from './static/images/13.jpg';
 import img4 from './static/images/14.jpg';
 import img5 from './static/images/15.jpg';
-import Carousel from 'mt-carousel';
+import Carousel from './Carousel';
 import './app.css';
 
-// 屏幕宽度
-const screenWidth = window.screen.width ||
-  document.documentElement.clientWidth ||
-  document.body.clientWidth;
-
-const SOURCE = [img1, img2, img3, img4, img5];
+const source = [img1, img2, img3, img4, img5];
 export default class App extends PureComponent {
-  constructor() {
-    super();
-    this.state = {
-    };
-  }
-
   render() {
     return (
       <div className="container">
@@ -28,9 +17,10 @@ export default class App extends PureComponent {
           autoPlay={true}
           indicatorColor="red"
           indicatorSize="small"
+          indicatorClass="indicator"
         >
           {
-            SOURCE.map((item, key) =>
+            source.map((item, key) =>
               <a
                 className="carousel-item-a"
                 key={key}

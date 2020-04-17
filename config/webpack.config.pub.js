@@ -1,25 +1,22 @@
+/**
+ * 用于打包发布的包
+ * npm run pub
+*/
+
 const path = require('path');
+const nodeExternals = require('webpack-node-externals');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
-const webpack = require('webpack');
-const env = require('./env');
-const { PUBLIC_PATH } = env.raw;
 
 module.exports = {
-  mode: 'production',
-  bail: true,
-	entry: [
-    path.resolve('src/index.js'),
-  ],
+	mode: 'production',
+	entry: path.resolve('./src/Carousel/index.js'),
   output: {
-    path: path.resolve('build'),
-    filename: 'static/js/[name].[chunkhash:8].js',
-    chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
-    publicPath: '/mt-carousel' + PUBLIC_PATH,
+    filename: 'bundle.js',
+    path: path.resolve('./dist'),
+    libraryTarget: 'commonjs2',
   },
   optimization: {
     minimize: true,
@@ -57,13 +54,7 @@ module.exports = {
       }),
       // 压缩css
       new OptimizeCssAssetsWebpackPlugin({}),    
-    ],
-    moduleIds: 'hashed',
-    splitChunks: {
-      chunks: 'all',
-      name: false,
-    },
-    runtimeChunk: true,
+    ]
   },
   resolve: {
     extensions: ['.js', '.jsx'],
@@ -122,7 +113,8 @@ module.exports = {
           {
             test: /\.css$/,
             loaders: [
-              MiniCssExtractPlugin.loader,
+              // MiniCssExtractPlugin.loader,
+              require.resolve('style-loader'),
               require.resolve('css-loader'),
               {
                 loader: require.resolve('postcss-loader'),
@@ -146,7 +138,8 @@ module.exports = {
           {
             test: /\.less$/,
             loaders: [
-              MiniCssExtractPlugin.loader,
+              // MiniCssExtractPlugin.loader,
+              require.resolve('style-loader'),
               require.resolve('css-loader'),
               {
                 loader: require.resolve('postcss-loader'),
@@ -179,19 +172,14 @@ module.exports = {
       }
     ],
   },
+  // 打包的时候不将node_modules中的模块进行打包
+  externals: [nodeExternals()],
   plugins: [
     new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({
-      template: path.resolve('./public/index.html'),
-      inject: true,
-      filename: 'index.html',
-    }),
-    new InterpolateHtmlPlugin(HtmlWebpackPlugin, env.raw),
-    new webpack.DefinePlugin(env.stringified),
-    new MiniCssExtractPlugin({
-      filename: 'static/css/[name].[contenthash:8].css',
-      chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
-    }),
-  ],
+    // new MiniCssExtractPlugin({
+    //   filename: '[name].css',
+    //   chunkFilename: '[id].css',
+    // }),
+  ]
 }
 

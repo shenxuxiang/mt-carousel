@@ -1,6 +1,6 @@
 {
   "name": "mt-carousel",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "react carousel, is a react component that carousel, build for mobile web app",
   "keywords": [
     "react",
@@ -11,17 +11,17 @@
     "react-carousel"
   ],
   "main": "index.js",
-  "homepage": "https://shenxuxiang.github.io/mt-carousel/",
+  "homepage": "https://github.com/shenxuxiang/mt-carousel",
   "scripts": {
-    "start": "webpack-dev-server --config config/webpack.config.dev.js",
-    "build": "webpack --config config/webpack.config.prod.js",
-    "pre": "webpack --config config/webpack.config.pre.js",
+    "dev": "webpack-dev-server --config config/webpack.config.dev.js",
+    "pub": "webpack --config config/webpack.config.pub.js",
+    "prod": "webpack --config config/webpack.config.prod.js",
     "deploy": "gh-pages -d build",
     "mock": "node mock/index.js",
     "lint": "eslint --ext .js src/Carousel",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "https://github.com/shenxuxiang/mt-carousel",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.9.0",

@@ -1,16 +1,14 @@
 # mt-carousel
 
 A light-weight React mt-carousel component with extremely easy API（只适用于移动端项目）. [Online Demo](https://shenxuxiang.github.io/mt-carousel/), welcome [code review](https://github.com/shenxuxiang/mt-carousel)
-## Installation
 
+## Installation
 ```sh
 npm install mt-carousel --save
 ```
 
 ## Usage
-
 ```js
-
 import img1 from './static/images/11.jpg';
 import img2 from './static/images/12.jpg';
 import img3 from './static/images/13.jpg';
@@ -28,6 +26,7 @@ export default class App extends PureComponent {
           autoPlay={false}
           indicatorSize="middle"
           indicatorColor="#f80"
+          indicatorClass="indicator"
         >
           {
             source.map((item, key) =>
@@ -51,7 +50,6 @@ export default class App extends PureComponent {
 }
 ```
 
-
 ## props
 
 | param            | detail                                         | type     | default         |
@@ -61,3 +59,4 @@ export default class App extends PureComponent {
 | autoPlay         | whether to loop                                | bool     | true            |
 | indicatorSize    | indicator style size                           | string   | 'middle'        |
 | indicatorColor   | indicator style color                          | string   | '#f80'          |
+| indicatorClass   | indicator class name                           | string   | ''              |
