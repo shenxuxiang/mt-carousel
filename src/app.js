@@ -9,10 +9,27 @@ import './app.css';
 
 const source = [img1, img2, img3, img4, img5];
 export default class App extends PureComponent {
+  constructor() {
+    super();
+    this.state = {
+      key: 0,
+    };
+  }
+
+  componentDidMount () {
+    window.addEventListener('resize', this.handleResize, false);
+  }
+
+  handleResize = () => {
+    this.setState(prevState => ({key: prevState.key + 1}));
+    console.log(this.state.key);
+  }
+
   render() {
     return (
       <div className="container">
         <Carousel
+          key={this.state.key}
           interval={3000}
           autoPlay={true}
           indicatorColor="red"
