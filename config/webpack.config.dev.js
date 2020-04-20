@@ -68,11 +68,11 @@ module.exports = {
             include: path.resolve('src'),
             options: {
               presets: [
-                ['@babel/preset-env', { modules: false, debug: true, useBuiltIns: 'usage' }],
+                ['@babel/preset-env', { modules: false, debug: true, useBuiltIns: 'usage', corejs: 3 }],
                 '@babel/preset-react',
               ],
               plugins: [
-                ['@babel/plugin-transform-runtime', { 'corejs': 2 }],
+                ['@babel/plugin-transform-runtime', { 'corejs': 3 }],
                 '@babel/plugin-syntax-dynamic-import',
                 ['@babel/plugin-proposal-decorators', { 'legacy': true }],
                 '@babel/plugin-proposal-export-default-from',

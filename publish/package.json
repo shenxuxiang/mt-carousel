@@ -1,0 +1,35 @@
+{
+  "author": {
+    "name": "https://github.com/shenxuxiang/mt-carousel"
+  },
+  "bugs": {
+    "url": "https://github.com/shenxuxiang/mt-carousel/issues"
+  },
+  "bundledependencies": false,
+  "dependencies": {
+    "react": "^16.13.1"
+  },
+  "description": "react carousel, is a react component that carousel, built for mobile web app",
+  "files": [
+    "carousel",
+    "LICENSE",
+    "index.js",
+    "package.json",
+    "README.md"
+  ],
+  "keywords": [
+    "react",
+    "mobile",
+    "carousel",
+    "slide",
+    "swipper",
+    "react-carousel"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "mt-carousel",
+  "peerDependencies": {
+    "react": "^16.13.1"
+  },
+  "version": "1.0.5"
+}
