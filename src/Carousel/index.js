@@ -216,7 +216,7 @@ function carousel(props) {
         requestAnimationID = null;
       }
     };
-  }, []);
+  }, [children.length]);
 
   return (
     <div className="mt-carousel-wrapper" ref={wrapperRef}>

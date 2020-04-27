@@ -13,16 +13,17 @@ export default class App extends PureComponent {
     super();
     this.state = {
       key: 0,
+      sourceList: []
     };
   }
 
   componentDidMount () {
+    this.setState({ sourceList: source });
     window.addEventListener('resize', this.handleResize, false);
   }
 
   handleResize = () => {
     this.setState(prevState => ({key: prevState.key + 1}));
-    console.log(this.state.key);
   }
 
   render() {
@@ -37,7 +38,7 @@ export default class App extends PureComponent {
           indicatorClass="indicator"
         >
           {
-            source.map((item, key) =>
+            this.state.sourceList.map((item, key) =>
               <a
                 className="carousel-item-a"
                 key={key}
